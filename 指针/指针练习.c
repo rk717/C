@@ -1,3 +1,5 @@
+https://codeforwin.org/2017/12/pointer-programming-exercises-and-solutions-in-c.html
+
 用指针相加和减去两个数
 
 #include <stdio.h>
