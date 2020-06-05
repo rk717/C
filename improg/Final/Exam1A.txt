@@ -1,0 +1,21 @@
+Create a type which represents an employee. An employee has a name, salary and the number of days since (s)he works for the company. The position of employees is modified after a few years according to these:
+
+From 0th year: Intern
+From 3rd year: Software Developer
+From 5th year: Master Developer
+From 10th year: Senior Developer
+Represent these positions with an enumeration type.
+
+Create a function which simulates the passing of one day: the employee works one day more for the company and every year (i.e. after every 365 days) his/her salary is incremented by 5%.
+
+In the main program create an array with at least five employees and perform the simulation for 10,000 days.
+
+Create a function which returns the number of employees with a given position. The position can be passed as a function parameter as an enumeration type. The function should be able to work on any size array.
+
+Create a function which finds an employee with the given name and return a pointer to this person. If there is no person with the given name in the array then return NULL pointer.
+
+Create some test code in the main program which uses these employee counter and finder functions.
+
+Store the array of employees on the heap. Make sure that there is no memory leak in the program.
+
+Separate the program on multiple translation units. Use the "include guard" idiom.

@@ -1,99 +1,83 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
 
-//离散存储——链表
-
-/*
-定义：
-    n个节点离散分配
-    彼此通过指针相连
-    每个节点只有一个前驱节点，每个节点只有一个后驱节点
-    首节点没有前驱节点，尾节点没有后续节点 
-
-    专业术语：
-        首节点：第一个存储数据
-        尾节点：最后一个存储数据
-        
-        头节点：头节点指向首节点，并不存在有效数据，方便对链表操作
-                头节点数据类型和首节点类型一样
-
-        头指针：指向头节点的指针变量
-        尾指针：指向尾节点的指针变量
-    
-    如果希望通过一个函数来对链表进行处理，我们至少需要接受链表的哪些信息:
-        只需要一个参数：头指针
-        因为我们通过头指针可以推算出链表的其他所有信息
-
-
-分类：
-    单链表
-    双链表
-        每一个节点有两个指针域
-
-    循环列表
-        能通过任何一个节点找到其他所有的节点
-        
-    非循环链表
-
-算法：
-    遍历
-    查找
-    清空
-    销毁
-    求长度
-    排序
-    删除节点
-    插入节点
-
-链表的优缺点：
-
-*/
-
-/*
-
-1.一个节点的生成
-
+//分配了一个不存放有效数据的头节点
 typedef struct Node
 {
-    int data; //数据域
+    int data;//数据域
     struct Node* pNext; //指针域
-}NODE, *PNODE; // Node等价于struct Node, PNODE等价于struct Node*
+}NODE, *PNODE; 
+//NODE等价于struct Node
+//PNODE 等价于struct NODE*
 
+//函数声明
+PNODE create_list(void);
+void traverse_list(PNODE pHead);
 
 int main(void)
 {
+    //头指针
+    PNODE pHead = NULL; //等价于 struct Node* pHead = NULL;
+    
+    pHead = create_list(); 
+    //create_list()功能：创建一个非循环单链表，并将该链表的头节点的地址赋给PHead
+    //这里需要的是返回地址
 
-    return 0;
+    traverse_list(pHead);
+
+    return 0; 
 }
 
-*/
+PNODE create_list(void) //返回的是指针类型，就是返回地址
+{
+    int len; //用来存放有效节点的个数
+    int i;
+    int val; //用来临时存放用户输入节点的值 
 
+    //分配了一个不存放有效数据的头节点
+    PNODE pHead = (PNODE)malloc(sizeof(NODE));
+    if(NULL == pHead)
+    {
+        printf("Memory allocate error! \n");
+        exit(-1);
+    }
+    PNODE pTail = pHead;
+    pTail -> pNext = NULL;
 
-/*
-插入一个 节点
+    printf("please input how many nodes you want to put in: len = ");
+    scanf("%d", &len);
 
-p->pNext //表示的指针域
+    for(i = 0; i < len; ++i)
+    {
+        printf("Please input NO.%d Node valuse: ", i+1);
+        scanf("%d", &val);
 
-把 q 插入 p 和 r 之间
-r = p->pNext; //p原来指针域是指向 r
-p->pNext = q;  // 这时p的指针域指向 q
-q->pNext = r;  // q 的指针域 指向 r
- 
-q->pNext = p->pNext; //这里的 p->pNext 指的是 r
-p->pNext = q;  //p->pNext 指的是 把q 插入 p 后
+        PNODE pNew = (PNODE)malloc(sizeof(NODE)); //pNew 指着新的 node
+        if(NULL == pNew)
+        {
+            printf("Memory allocate error !\n");
+            exit(-1);
+        }
+        pNew -> data = val;
+        
+        pTail -> pNext = pNew; //pTail 里 node 指向的下一个 node 是 pNew
+        pNew -> pNext = NULL;
+        pTail = pNew;  //pTail = pNew 是让 pTail 也指那个 node
+    }
+    return pHead; //把这个新生成 的 链表 的 头 指针 传出去
+}
 
-*/
+void traverse_list(PNODE pHead)
+{
+    PNODE p = pHead -> pNext;
 
-/*
-删除一个 节点
-p r m ，删除 r 节点
+    while(NULL != p)  //只要p指向的不为空就一直输出
+    {
+        printf("%d ", p -> data);
+        p = p -> pNext;
+    }
+    printf("\n");
 
-r = p->pNext;
-p->pNext = p->pNext->pNext;
-free(r)
+    return;
 
-
-
-
-*/
+}
